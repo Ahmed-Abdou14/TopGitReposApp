@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:qcri_flutter_app/CustomWidgets/github_model_card.dart';
 import 'package:qcri_flutter_app/Repository/github_repo_model.dart';
 import 'package:qcri_flutter_app/Repository/repo.dart';
@@ -13,10 +12,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Repo repo = const Repo();
-  late List<GitHubModel> githubModels;
-  late Future<List<GitHubModel>> githubModelsFuture;
-
-  bool isActive = false;
+  late List<GitHubRepoModel> githubModels;
+  late Future<List<GitHubRepoModel>> githubModelsFuture;
+  bool isShowingCards = false;
 
   @override
   void initState() {
@@ -29,20 +27,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Git Wizard"),
+        centerTitle: true,
+        title: const Text("Git Wizard"),
         actions: [
           IconButton(
             onPressed: () {
               setState(() {
-                isActive = !isActive;
+                isShowingCards = !isShowingCards;
               });
             },
-            icon: isActive ? Icon(Icons.remove_red_eye_outlined) : Icon(Icons.remove_red_eye),
+            icon: isShowingCards ? const Icon(Icons.remove_red_eye_outlined) : const Icon(Icons.remove_red_eye),
           )
         ],
       ),
       body: Center(
-        child: isActive
+        child: isShowingCards
             ? Column(
                 children: <Widget>[
                   FutureBuilder(
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                       }
 
                       if (snapshot.hasData) {
-                        githubModels = snapshot.data as List<GitHubModel>;
+                        githubModels = snapshot.data as List<GitHubRepoModel>;
                         return ListView.builder(
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: githubModels.length,
                           shrinkWrap: true,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                         );
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
@@ -72,9 +71,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )
-            : Text("Explore the latest hot GitHub Repos now!"),
+            : Column(
+              children: [
+                const SizedBox(height: 100),
+                Image.asset('assets/Octocat.png'),
+                const SizedBox(height: 50),
+                const Text(
+                  'Peak Github\'s Most Wanted Repos',
+                  style: TextStyle(   
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )
+              ]
+            ),
       ),
-      floatingActionButton: isActive
+      floatingActionButton: isShowingCards
           ? FloatingActionButton(
               onPressed: onRefreshPressed,
               tooltip: 'Refresh',

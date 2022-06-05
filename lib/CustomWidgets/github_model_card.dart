@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:qcri_flutter_app/Repository/github_repo_model.dart';
 
 class GitHubModelCard extends StatelessWidget {
-  final GitHubModel gitHubModel;
+  final GitHubRepoModel gitHubModel;
 
   const GitHubModelCard({
     Key? key,
@@ -28,9 +26,9 @@ class GitHubModelCard extends StatelessWidget {
             ),
             Text(
               gitHubModel.repoUrl,
-              style: TextStyle(fontStyle: FontStyle.italic),
+              style: const TextStyle(fontStyle: FontStyle.italic),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const Icon(Icons.account_tree, size: 20, color: Colors.teal),
