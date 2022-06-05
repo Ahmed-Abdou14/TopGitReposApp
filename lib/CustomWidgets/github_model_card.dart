@@ -22,31 +22,34 @@ class GitHubModelCard extends StatelessWidget {
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
+                color: Colors.white,
               ),
             ),
             Text(
               gitHubModel.repoUrl,
-              style: const TextStyle(fontStyle: FontStyle.italic),
+              style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.white),
             ),
             const SizedBox(height: 10),
             Row(
               children: [
-                const Icon(Icons.account_tree, size: 20, color: Colors.teal),
-                Text("${gitHubModel.forkCount}"),
+                const Icon(Icons.account_tree, size: 20, color: Colors.deepOrangeAccent),
+                const SizedBox(width: 10),
+                Text("${gitHubModel.forkCount}", style: const TextStyle(color: Colors.white)),
               ],
             ),
             Row(
               children: [
                 const Icon(Icons.star, size: 20, color: Colors.amber),
-                Text("${gitHubModel.starCount}"),
+                const SizedBox(width: 10),
+                Text("${gitHubModel.starCount}", style: const TextStyle(color: Colors.white)),
               ],
             ),
           ],
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey,
+          color: Colors.blue,
         ),
       ),
     );

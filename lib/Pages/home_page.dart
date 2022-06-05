@@ -44,32 +44,16 @@ class _HomePageState extends State<HomePage> {
         child: isShowingCards
             ? Column(
                 children: <Widget>[
-                  FutureBuilder(
-                    future: githubModelsFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      }
-
-                      if (snapshot.hasData) {
-                        githubModels = snapshot.data as List<GitHubRepoModel>;
-                        return ListView.builder(
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: GitHubModelCard(gitHubModel: githubModels[index]),
-                          ),
-                          itemCount: githubModels.length,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(10),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
-                      }
-
-                      return const CircularProgressIndicator();
-                    },
+                  ListView.builder(
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GitHubModelCard(gitHubModel: githubModels[index]),
+                    ),
+                    itemCount: githubModels.length,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(10),
                   ),
-                ],
+                ]
               )
             : Column(
               children: [
