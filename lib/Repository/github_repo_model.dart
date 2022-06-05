@@ -1,17 +1,18 @@
-class GitHubRepo {
+class GitHubModel {
   final String repoName;
   final String repoUrl;
   final int starCount;
   final int forkCount;
 
-  const GitHubRepo(
-      {required this.repoName,
-      required this.repoUrl,
-      required this.starCount,
-      required this.forkCount});
+  const GitHubModel({
+    required this.repoName,
+    required this.repoUrl,
+    required this.starCount,
+    required this.forkCount,
+  });
 
-  factory GitHubRepo.fromJson(Map<String, dynamic> json) {
-    return GitHubRepo(
+  factory GitHubModel.fromJson(Map<String, dynamic> json) {
+    return GitHubModel(
         repoName: json["repo_name"],
         repoUrl: json["repo_url"],
         starCount: json["star_count"],
@@ -20,6 +21,6 @@ class GitHubRepo {
 
   @override
   String toString() {
-    return '$repoName sdfsdf';
+    return '$repoName-$repoUrl-$starCount';
   }
 }
