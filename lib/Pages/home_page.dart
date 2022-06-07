@@ -42,7 +42,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: isShowingCards
-            ? Column(
+            ? SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Column(
                 children: <Widget>[
                   FutureBuilder(
                     future: githubModelsFuture,
@@ -71,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )
+            )
             : Column(
               children: [
                 const SizedBox(height: 100),
@@ -91,6 +94,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: onRefreshPressed,
               tooltip: 'Refresh',
               child: const Icon(Icons.refresh),
+              
             )
           : null,
     );
